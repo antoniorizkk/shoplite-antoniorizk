@@ -2,10 +2,10 @@
 
 ## 1) Typeahead / Search suggestions
 
-**Problem statement (1 paragraph)**  
+**Problem statement**  
 Users abandon or take long paths when search requires full queries or exact matches. A responsive typeahead that returns relevant SKU suggestions while typing reduces time-to-product, increases click-through on product pages, and improves conversion.
 
-**Happy path (6–10 steps)**  
+**Happy path**  
 1. User focuses the site search input and begins typing "wireless he...".  
 2. Client sends prefix request to Typeahead service (includes session locale, partial query).  
 3. Typeahead service checks cache keyed by prefix; if hit -> returns cached suggestions instantly.  
@@ -47,17 +47,17 @@ Users abandon or take long paths when search requires full queries or exact matc
 - Product metric 2 (Time-to-first-product-click) = median(time from search focus to product click) pre/post feature.  
 - Business metric (conversion uplift) = (orders_from_suggestions / suggestion_clicks) - baseline_conversion_rate; or relative uplift = (conversion_with_suggestions - baseline) / baseline.
 
-**Feasibility note (3–5 lines)**  
+**Feasibility note**  
 Catalog and SKU metadata are available (10k SKUs). Implementation requires a lightweight retrieval layer (prefix index / Elasticsearch) and a model endpoint (Llama 3.1 8B). Next prototype step: implement prefix cache + lexical suggestions, then add an LLM reranker for top 10 candidates and measure p95.
 
 ---
 
 ## 2) Support assistant (FAQ + order status)
 
-**Problem statement (1 paragraph)**  
+**Problem statement**  
 Customers contact support for order status, returns, shipping, and policy questions. A grounded assistant that answers FAQ intents and returns `order-status` by id can deflect repetitive tickets, shorten resolution time, and reduce cost-per-ticket, while escalating complex or sensitive queries to humans.
 
-**Happy path (6–10 steps)**  
+**Happy path**  
 1. User opens support chat and asks: "Where is my order #123456?"  
 2. Client sends request to assistant service with the user's message and optional order id entered by user.  
 3. Assistant service retrieves the matching Policy/FAQ entries and calls `order-status` API to fetch the live state (if order id provided).  
@@ -103,5 +103,5 @@ Customers contact support for order status, returns, shipping, and policy questi
 - Product metric 2 (Median time to first answer) = median(time from request to bot answer).  
 - Business metric (Support cost savings) = deflection_rate * total_monthly_ticket_volume * avg_ticket_cost.
 
-**Feasibility note (3–5 lines)**  
+**Feasibility note**  
 Policies/FAQ markdown and `order-status` API exist and are sufficient initial grounding sources. Implementation requires a retrieval layer (FAQ index), a small context window mapping, and a model endpoint (Llama 3.1 8B). Next prototype step: implement the "order status" happy path for authenticated users and measure deflection on a small sample (10% of traffic).
