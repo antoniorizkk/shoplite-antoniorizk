@@ -1,4 +1,4 @@
-# AI capability map — ShopLite (Week 2)
+# AI capability map — ShopLite
 
 | Capability | Intent (user) | Inputs (this sprint) | Risk 1–5 (tag) | p95 ms | Est. cost/action | Fallback | Selected |
 |---|---|---|---|---:|---:|---|:---:|
